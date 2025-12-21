@@ -1,0 +1,2 @@
+dvc exp run --queue -S  general.tfmin=60  -S general.asset=0 -S wf.train_length=7  -S wf.test_length=28 -S general.performance_stat=sharpe
+dvc exp run --queue -S  general.tfmin=60  -S general.asset=0 -S wf.train_length=14  -S wf.test_length=10 -S general.performance_stat=sharpe
