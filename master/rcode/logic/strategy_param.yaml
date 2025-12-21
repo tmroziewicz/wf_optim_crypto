@@ -1,0 +1,23 @@
+strategy:
+    data.path: &dt "master"
+
+    position.type.int: 3
+
+    fee_int: 0.001
+
+    ma_cutoff_int : 35
+
+    ma_periods_array:
+        - 5
+        - 7
+        - 10
+        - 15
+        - 20
+        - 30
+        - 40
+        - 50
+        - 100
+        - 150
+        - 200   
+
+

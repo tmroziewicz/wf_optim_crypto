@@ -1,0 +1,1 @@
+dvc exp run --queue -S  general.tfmin=60  -S wf.train_length=21,28  -S wf.test_length=1,2,3,5,7,10,14,21,28  -S general.performance_stat=sharpe
