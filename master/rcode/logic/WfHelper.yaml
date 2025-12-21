@@ -1,0 +1,4 @@
+wf:
+    train_length: 4
+    test_length: 2
+    
