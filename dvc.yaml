@@ -1,0 +1,112 @@
+params:
+    - params.yaml
+    - rcode/logic/strategy_param.yaml
+    - rcode/logic/WfHelper.yaml
+metrics:
+    - metrics.yaml
+    - dfresult.yaml
+stages:
+  
+  01_read_transform_save_to_xts:
+    cmd: rscript master/rcode/01_convert_to_xts.r  --inputfile  ${general.raw_data} --o master/data-wip/01_converted_to_xts.rds
+    deps:
+    - ${general.raw_data}
+    - master/rcode/01_convert_to_xts.r
+    - master/rcode/logic/helpers/data_helper.r
+    outs:
+    - master/data-wip/01_converted_to_xts.rds
+    params:
+    - general.raw_data
+    
+  02_downsample:
+    cmd: rscript master/rcode/02_downsample.r  --inputfile  master/data-wip/01_converted_to_xts.rds --asset ${general.asset} --timeframe ${general.tfmin} --o ${general.datapath}/${general.asset}/${general.tfmin}/02_downsampled.rds
+    deps:
+    - master/data-wip/01_converted_to_xts.rds    
+    outs:
+    - ${general.datapath}/${general.asset}/${general.tfmin}/02_downsampled.rds    
+    params:
+    - general
+
+ 
+  03_precalculate:
+    cmd: rscript master/rcode/03_precalculate.r  --inputfile  ${general.datapath}/${general.asset}/${general.tfmin}/02_downsampled.rds --o ${general.datapath}/${general.asset}/${general.tfmin}/03_precalculated.rds
+    deps:
+    - ${general.datapath}/${general.asset}/${general.tfmin}/02_downsampled.rds
+    - master/rcode/logic/strategy.r
+    outs:
+    - ${general.datapath}/${general.asset}/${general.tfmin}/03_precalculated.rds
+    params:
+    - general
+    
+  04_calculate_position:
+    cmd: rscript master/rcode/04_calculate_position.r  --inputfile  ${general.datapath}/${general.asset}/${general.tfmin}/03_precalculated.rds --o ${general.datapath}/${general.asset}/${general.tfmin}/04_positions.rds
+    deps:
+    - ${general.datapath}/${general.asset}/${general.tfmin}/03_precalculated.rds
+    outs:
+    - ${general.datapath}/${general.asset}/${general.tfmin}/04_positions.rds
+
+  05_calculate_pnl:
+    cmd: rscript master/rcode/05_calculate_pnl.r  --inputfile  ${general.datapath}/${general.asset}/${general.tfmin}/04_positions.rds --o ${general.datapath}/${general.asset}/${general.tfmin}/05_pnl.rds
+    deps:
+    - master/rcode/05_calculate_pnl.r
+    - ${general.datapath}/${general.asset}/${general.tfmin}/04_positions.rds
+    - master/rcode/logic/strategy_param.yaml
+    - master/rcode/logic/strategy.r        
+    outs:
+    - ${general.datapath}/${general.asset}/${general.tfmin}/05_pnl.rds
+ 
+  06_wf_calculate_indexes:
+    cmd: rscript master/rcode/06_wf_calculate_indexes.r  --inputfile  ${general.datapath}/${general.asset}/${general.tfmin}/05_pnl.rds --o ${general.datapath}/${general.asset}/${general.tfmin}/06_wf_indexes.rds --trainlen ${wf.train_length} --testlen ${wf.test_length}
+    deps:
+    - ${general.datapath}/${general.asset}/${general.tfmin}/05_pnl.rds
+    - master/rcode/logic/WfHelper.r
+    - master/rcode/logic/WfHelper.yaml
+    - master/rcode/logic/strategy_param.yaml
+    - master/rcode/logic/strategy.r
+    - master/rcode/06_wf_calculate_indexes.r
+    outs:
+    - ${general.datapath}/${general.asset}/${general.tfmin}/06_wf_indexes.rds
+
+  07_wf_calculate_metrics:
+    cmd: rscript master/rcode/07_wf_calculate_metrics.r  --inputfile  ${general.datapath}/${general.asset}/${general.tfmin}/05_pnl.rds --indexes ${general.datapath}/${general.asset}/${general.tfmin}/06_wf_indexes.rds --o ${general.datapath}/${general.asset}/${general.tfmin}/07_wf_metrics.rds 
+    deps:
+    - ${general.datapath}/${general.asset}/${general.tfmin}/05_pnl.rds    
+    - ${general.datapath}/${general.asset}/${general.tfmin}/06_wf_indexes.rds
+    - master/rcode/logic/WfHelper.r
+    - master/rcode/logic/WfHelper.yaml
+    - master/rcode/07_wf_calculate_metrics.r
+    - master/rcode/logic/helpers/metrics_helper.r
+    outs:
+    - ${general.datapath}/${general.asset}/${general.tfmin}/07_wf_metrics.rds
+    params:
+    - general
+    
+  08_wf_select_best_params:
+    cmd: rscript master/rcode/08_wf_select_best_params.r  --inputfile  ${general.datapath}/${general.asset}/${general.tfmin}/07_wf_metrics.rds  --o ${general.datapath}/${general.asset}/${general.tfmin}/08_wf_best_params.rds
+    deps:    
+    - ${general.datapath}/${general.asset}/${general.tfmin}/07_wf_metrics.rds
+    - master/rcode/logic/WfHelper.r
+    - master/rcode/08_wf_select_best_params.r 
+    outs:
+    - ${general.datapath}/${general.asset}/${general.tfmin}/08_wf_best_params.rds
+    params:
+    - general
+
+  09_wf_eval_test:
+    cmd: rscript master/rcode/09_wf_eval_test.r  --inputfile  ${general.datapath}/${general.asset}/${general.tfmin}/08_wf_best_params.rds --pnlfile ${general.datapath}/${general.asset}/${general.tfmin}/05_pnl.rds --positions   ${general.datapath}/${general.asset}/${general.tfmin}/04_positions.rds --metricsfile ${general.datapath}/${general.asset}/${general.tfmin}/07_wf_metrics.rds --downsampled  ${general.datapath}/${general.asset}/${general.tfmin}/02_downsampled.rds --outputfile ${general.datapath}/${general.asset}/${general.tfmin}/09_wf_test_evalued.rds
+    deps:    
+    - ${general.datapath}/${general.asset}/${general.tfmin}/07_wf_metrics.rds
+    - ${general.datapath}/${general.asset}/${general.tfmin}/08_wf_best_params.rds
+    - ${general.datapath}/${general.asset}/${general.tfmin}/04_positions.rds
+    - master/rcode/logic/WfHelper.r
+    - master/rcode/09_wf_eval_test.r
+    - master/rcode/logic/helpers/metrics_helper.r
+
+    outs:
+    - ${general.datapath}/${general.asset}/${general.tfmin}/09_wf_test_evalued.rds
+    - metrics.yaml
+    params:
+    - general
+    - wf
+ 
+  
