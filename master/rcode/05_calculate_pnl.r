@@ -1,0 +1,37 @@
+if (!require("pacman")) install.packages("pacman", repos = "http://cran.us.r-project.org")
+pacman::p_load(xts,yaml,optparse, tibble,here,tidyverse,roll,R6)
+
+#Precalculate all data which could be later used withouth need for caluclation 
+source("master//rcode//logic//strategy.r")
+
+
+Sys.setlocale("LC_TIME", "English")
+
+parser <- OptionParser()
+
+parser <- add_option(parser, "--inputfile", action="store_true", type="character" ,
+                     default=TRUE, help="Print extra output [default]")
+
+parser <- add_option(parser,  "--outputfile", action="store_true",type="character" , default="" , help="Print little output")
+
+opt <- parse_args(parser)
+
+param.path.str <- "master//rcode//logic/strategy_param.yaml"
+
+strat.params.yaml <- yaml::read_yaml(param.path.str)
+
+dvc.params.yaml <- yaml::read_yaml("params.yaml")
+
+strategy.obj <- Strategy$new(param.path.str = param.path.str)
+
+data.in.xts <- readRDS(opt$inputfile)
+#data.in.xts <- readRDS("./master/data-wip/1/60/04_positions.rds")
+
+data.out.xts <- strategy.obj$calculate.pnl(data.in.xts)
+# print(head(data.out.xts))
+# print(packageVersion ("xts"))
+# print(packageVersion ("dplyr"))
+# print(packageVersion ("stats"))
+# print(R.version.string)
+saveRDS(data.out.xts, opt$outputfile)
+
