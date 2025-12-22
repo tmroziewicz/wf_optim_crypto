@@ -23,3 +23,19 @@ To check out a specific experiment, use:
 - experiments/data_unseen/trn_7_tst_28_BNB_telic-ions
 - experiments/data_unseen/trn_7_tst_28_BTC_ochre-expo
 - experiments/data_unseen/trn_7_tst_28_ETH_crack-torc
+
+
+
+#Prerequistits 
+**Git**: Installed and configured.
+**R**: version 3.6 or higher.
+**DVC**: Install via `pip install dvc`.
+
+
+## How to reproduce experiments 
+- Clone repository git clone https://github.com/tmroziewicz/wf_optim_crypto wf_optim_crypto
+- Navigate to repository cd wf_optim_crypto 
+- Download data from https://drive.google.com/drive/folders/1HAYX3iUfO5ewWXlWK0MbOAu9HQ4l6Zzr
+- Place in master\data-raw\
+- git checkout experiments/data_unseen/trn_14_tst_10_BNB_varus-puck 
+- run command:  dvc exp run
