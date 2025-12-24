@@ -1,5 +1,8 @@
-if (!require("pacman")) install.packages("pacman", repos = "http://cran.us.r-project.org")
-pacman::p_load(xts,yaml,R6,quantmod)
+library('xts')
+library('yaml')
+library('quantmod')
+library('R6')
+
 source("master//rcode//logic//helpers//data_helper.r")
 Strategy <- R6Class(
   "Strategy",

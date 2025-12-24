@@ -1,9 +1,11 @@
-if (!require("pacman")) install.packages("pacman", repos = "http://cran.us.r-project.org")
-pacman::p_load(xts,yaml,R6,tseries,PerformanceAnalytics)
+library('xts')
+library('yaml')
+library('R6')
+library('tseries')
+library('PerformanceAnalytics')
+
 source("master//rcode//logic//helpers//data_helper.r")
 source("master//rcode//logic//helpers//metrics_helper.r")
-
-
 
 
 WfHelper <- R6Class(

@@ -1,6 +1,12 @@
-if (!require("pacman")) install.packages("pacman", repos = "http://cran.us.r-project.org")
-pacman::p_load(xts,yaml,optparse, tibble,here,tidyverse,roll,R6)
-
+library('xts')
+library('yaml')
+library('optparse')
+library('tibble')
+library('here')
+library('tidyverse')
+library('roll')
+library('R6')
+s
 parser <- OptionParser()
 #parser <- add_option(parser, "--inputfile", action="store_true", type="character" ,
                      # default=TRUE, help="Print extra output [default]")

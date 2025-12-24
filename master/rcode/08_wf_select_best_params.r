@@ -1,5 +1,11 @@
-if (!require("pacman")) install.packages("pacman", repos = "http://cran.us.r-project.org")
-pacman::p_load(xts,yaml,optparse, tibble,here,tidyverse,roll,R6)
+library('xts')
+library('yaml')
+library('optparse')
+library('tibble')
+library('here')
+library('tidyverse')
+library('roll')
+library('R6')
 
 #Precalculate all data which could be later used withouth need for caluclation 
 source("master//rcode//logic//strategy.r")

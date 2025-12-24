@@ -1,6 +1,11 @@
-if (!require("pacman")) install.packages("pacman", repos = "http://cran.us.r-project.org")
-pacman::p_load(xts,yaml,optparse, tibble,here,tidyverse,roll,R6)
-
+library('xts')
+library('yaml')
+library('optparse')
+library('tibble')
+library('here')
+library('tidyverse')
+library('roll')
+library('R6')
 
 source("master//rcode//logic//strategy.r")
 source("master//rcode//logic//helpers//data_helper.r")

@@ -1,4 +1,3 @@
-pacman::p_load(xts,yaml,R6,quantmod)
 apply.array.as.df <- function(data.arr,colToAdd=c(),prefix="train_" ) {
   df <- data.frame(t(c(colToAdd, data.arr)))
   colnames(df) <- paste(prefix,c(names(colToAdd),names(data.arr)),sep="")

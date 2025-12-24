@@ -1,5 +1,3 @@
-if (!require("pacman")) install.packages("pacman", repos = "http://cran.us.r-project.org")
-pacman::p_load(tseries)
 sharpe <- function(rets, freq=0) {
   return  ( sqrt(freq)* (mean(as.matrix(rets))/ sd(as.matrix(rets))  ) )
 }
