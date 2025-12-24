@@ -6,7 +6,7 @@ library('here')
 library('tidyverse')
 library('roll')
 library('R6')
-s
+
 parser <- OptionParser()
 #parser <- add_option(parser, "--inputfile", action="store_true", type="character" ,
                      # default=TRUE, help="Print extra output [default]")
