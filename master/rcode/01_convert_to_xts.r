@@ -4,7 +4,6 @@ library('optparse')
 library('tibble')
 library('here')
 library('tidyverse')
-library('roll')
 library('R6')
 
 source("master//rcode//logic//strategy.r")

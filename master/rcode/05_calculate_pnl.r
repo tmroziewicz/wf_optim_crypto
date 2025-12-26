@@ -4,7 +4,7 @@ library('optparse')
 library('tibble')
 library('here')
 library('tidyverse')
-library('roll')
+
 library('R6')
 
 #Precalculate all data which could be later used withouth need for caluclation 
