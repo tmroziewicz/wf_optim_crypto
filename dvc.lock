@@ -1,0 +1,278 @@
+schema: '2.0'
+stages:
+  01_read_transform_save_to_xts:
+    cmd: rscript master/rcode/01_convert_to_xts.r  --inputfile 
+      master/data-raw/data_unseen_20191001_20210920.csv --o 
+      master/data-wip/01_converted_to_xts.rds
+    deps:
+    - path: master/data-raw/data_unseen_20191001_20210920.csv
+      hash: md5
+      md5: e28d02b987e969f4423f60ff350f4a4f
+      size: 1464085153
+    - path: master/rcode/01_convert_to_xts.r
+      hash: md5
+      md5: 5928ac3be7e5a88444bacbb8999dc268
+      size: 1695
+    - path: master/rcode/logic/helpers/data_helper.r
+      hash: md5
+      md5: 7887db74e164878daf4aa51513416a44
+      size: 1588
+    params:
+      params.yaml:
+        general.raw_data: master/data-raw/data_unseen_20191001_20210920.csv
+    outs:
+    - path: master/data-wip/01_converted_to_xts.rds
+      hash: md5
+      md5: b9232b15dfd51306996b0018a2a39d02
+      size: 55170935
+  02_downsample:
+    cmd: rscript master/rcode/02_downsample.r  --inputfile 
+      master/data-wip/01_converted_to_xts.rds --asset 1 --timeframe 60 --o 
+      ./master/data-wip/1/60/02_downsampled.rds
+    deps:
+    - path: master/data-wip/01_converted_to_xts.rds
+      hash: md5
+      md5: b9232b15dfd51306996b0018a2a39d02
+      size: 55170935
+    params:
+      params.yaml:
+        general:
+          asset: 1
+          tfmin: 60
+          performance_stat: sharpe
+          datapath: ./master/data-wip
+          raw_data: master/data-raw/data_unseen_20191001_20210920.csv
+    outs:
+    - path: ./master/data-wip/1/60/02_downsampled.rds
+      hash: md5
+      md5: e72d6435a09045c07b948a3e4ac601c4
+      size: 149345
+  03_precalculate:
+    cmd: rscript master/rcode/03_precalculate.r  --inputfile 
+      ./master/data-wip/1/60/02_downsampled.rds --o 
+      ./master/data-wip/1/60/03_precalculated.rds
+    deps:
+    - path: ./master/data-wip/1/60/02_downsampled.rds
+      hash: md5
+      md5: e72d6435a09045c07b948a3e4ac601c4
+      size: 149345
+    - path: master/rcode/logic/strategy.r
+      hash: md5
+      md5: 4df73a9960e858c1b9355331ba5e85a7
+      size: 4747
+    params:
+      params.yaml:
+        general:
+          asset: 1
+          tfmin: 60
+          performance_stat: sharpe
+          datapath: ./master/data-wip
+          raw_data: master/data-raw/data_unseen_20191001_20210920.csv
+    outs:
+    - path: ./master/data-wip/1/60/03_precalculated.rds
+      hash: md5
+      md5: 01666f6c96b6de77031c50b570d8b5d8
+      size: 1517177
+  04_calculate_position:
+    cmd: rscript master/rcode/04_calculate_position.r  --inputfile 
+      ./master/data-wip/1/60/03_precalculated.rds --o 
+      ./master/data-wip/1/60/04_positions.rds
+    deps:
+    - path: ./master/data-wip/1/60/03_precalculated.rds
+      hash: md5
+      md5: 01666f6c96b6de77031c50b570d8b5d8
+      size: 1517177
+    outs:
+    - path: ./master/data-wip/1/60/04_positions.rds
+      hash: md5
+      md5: b4c01d1a61b5b260dece19d676e86363
+      size: 177129
+  05_calculate_pnl:
+    cmd: rscript master/rcode/05_calculate_pnl.r  --inputfile 
+      ./master/data-wip/1/60/04_positions.rds --o 
+      ./master/data-wip/1/60/05_pnl.rds
+    deps:
+    - path: ./master/data-wip/1/60/04_positions.rds
+      hash: md5
+      md5: b4c01d1a61b5b260dece19d676e86363
+      size: 177129
+    - path: master/rcode/05_calculate_pnl.r
+      hash: md5
+      md5: 3d10ef79003ab1ade278818b2723f780
+      size: 1206
+    - path: master/rcode/logic/strategy.r
+      hash: md5
+      md5: 4df73a9960e858c1b9355331ba5e85a7
+      size: 4747
+    - path: master/rcode/logic/strategy_param.yaml
+      hash: md5
+      md5: e4703ee2aee34c0118cfac4836cedc04
+      size: 280
+    outs:
+    - path: ./master/data-wip/1/60/05_pnl.rds
+      hash: md5
+      md5: d97786838a0c4699467c6ea0183f14cf
+      size: 3589049
+  06_wf_calculate_indexes:
+    cmd: rscript master/rcode/06_wf_calculate_indexes.r  --inputfile 
+      ./master/data-wip/1/60/05_pnl.rds --o 
+      ./master/data-wip/1/60/06_wf_indexes.rds --trainlen 7 --testlen 28
+    deps:
+    - path: ./master/data-wip/1/60/05_pnl.rds
+      hash: md5
+      md5: d97786838a0c4699467c6ea0183f14cf
+      size: 3589049
+    - path: master/rcode/06_wf_calculate_indexes.r
+      hash: md5
+      md5: 52be3d95d98c14effd8ec9a6d30ab44b
+      size: 1915
+    - path: master/rcode/logic/WfHelper.r
+      hash: md5
+      md5: 69a1b3d646dbd78b8b21687f187733c8
+      size: 7109
+    - path: master/rcode/logic/WfHelper.yaml
+      hash: md5
+      md5: b682b3e2eb7608bbd372eb2572a92371
+      size: 47
+    - path: master/rcode/logic/strategy.r
+      hash: md5
+      md5: 4df73a9960e858c1b9355331ba5e85a7
+      size: 4747
+    - path: master/rcode/logic/strategy_param.yaml
+      hash: md5
+      md5: e4703ee2aee34c0118cfac4836cedc04
+      size: 280
+    outs:
+    - path: ./master/data-wip/1/60/06_wf_indexes.rds
+      hash: md5
+      md5: 3509c942fc253b55891b37b37dcc8015
+      size: 421
+  07_wf_calculate_metrics:
+    cmd: rscript master/rcode/07_wf_calculate_metrics.r  --inputfile 
+      ./master/data-wip/1/60/05_pnl.rds --indexes 
+      ./master/data-wip/1/60/06_wf_indexes.rds --o 
+      ./master/data-wip/1/60/07_wf_metrics.rds
+    deps:
+    - path: ./master/data-wip/1/60/05_pnl.rds
+      hash: md5
+      md5: d97786838a0c4699467c6ea0183f14cf
+      size: 3589049
+    - path: ./master/data-wip/1/60/06_wf_indexes.rds
+      hash: md5
+      md5: 3509c942fc253b55891b37b37dcc8015
+      size: 421
+    - path: master/rcode/07_wf_calculate_metrics.r
+      hash: md5
+      md5: c634b75f6387f9f4e1461d3cb359d4ac
+      size: 1577
+    - path: master/rcode/logic/WfHelper.r
+      hash: md5
+      md5: 69a1b3d646dbd78b8b21687f187733c8
+      size: 7109
+    - path: master/rcode/logic/WfHelper.yaml
+      hash: md5
+      md5: b682b3e2eb7608bbd372eb2572a92371
+      size: 47
+    - path: master/rcode/logic/helpers/metrics_helper.r
+      hash: md5
+      md5: 9daf35089af5a561db503c3cb08e4210
+      size: 1034
+    params:
+      params.yaml:
+        general:
+          asset: 1
+          tfmin: 60
+          performance_stat: sharpe
+          datapath: ./master/data-wip
+          raw_data: master/data-raw/data_unseen_20191001_20210920.csv
+    outs:
+    - path: ./master/data-wip/1/60/07_wf_metrics.rds
+      hash: md5
+      md5: e19c416383d662cdeed45fff27acc974
+      size: 115972
+  08_wf_select_best_params:
+    cmd: rscript master/rcode/08_wf_select_best_params.r  --inputfile 
+      ./master/data-wip/1/60/07_wf_metrics.rds  --o 
+      ./master/data-wip/1/60/08_wf_best_params.rds
+    deps:
+    - path: ./master/data-wip/1/60/07_wf_metrics.rds
+      hash: md5
+      md5: e19c416383d662cdeed45fff27acc974
+      size: 115972
+    - path: master/rcode/08_wf_select_best_params.r
+      hash: md5
+      md5: ff33c1947b5e8595baba1449ac2b50d6
+      size: 1874
+    - path: master/rcode/logic/WfHelper.r
+      hash: md5
+      md5: 69a1b3d646dbd78b8b21687f187733c8
+      size: 7109
+    params:
+      params.yaml:
+        general:
+          asset: 1
+          tfmin: 60
+          performance_stat: sharpe
+          datapath: ./master/data-wip
+          raw_data: master/data-raw/data_unseen_20191001_20210920.csv
+    outs:
+    - path: ./master/data-wip/1/60/08_wf_best_params.rds
+      hash: md5
+      md5: 32c5362be5fe82133fde3cce778667f6
+      size: 809
+  09_wf_eval_test:
+    cmd: rscript master/rcode/09_wf_eval_test.r  --inputfile  
+      ./master/data-wip/1/60/08_wf_best_params.rds --pnlfile 
+      ./master/data-wip/1/60/05_pnl.rds --positions   
+      ./master/data-wip/1/60/04_positions.rds --metricsfile 
+      ./master/data-wip/1/60/07_wf_metrics.rds --downsampled  
+      ./master/data-wip/1/60/02_downsampled.rds --outputfile 
+      ./master/data-wip/1/60/09_wf_test_evalued.rds
+    deps:
+    - path: ./master/data-wip/1/60/04_positions.rds
+      hash: md5
+      md5: b4c01d1a61b5b260dece19d676e86363
+      size: 177129
+    - path: ./master/data-wip/1/60/07_wf_metrics.rds
+      hash: md5
+      md5: e19c416383d662cdeed45fff27acc974
+      size: 115972
+    - path: ./master/data-wip/1/60/08_wf_best_params.rds
+      hash: md5
+      md5: 32c5362be5fe82133fde3cce778667f6
+      size: 809
+    - path: master/rcode/09_wf_eval_test.r
+      hash: md5
+      md5: 4f8360ee76d6ed2259687c98d29ee955
+      size: 8262
+    - path: master/rcode/logic/WfHelper.r
+      hash: md5
+      md5: 69a1b3d646dbd78b8b21687f187733c8
+      size: 7109
+    - path: master/rcode/logic/helpers/metrics_helper.r
+      hash: md5
+      md5: 9daf35089af5a561db503c3cb08e4210
+      size: 1034
+    params:
+      params.yaml:
+        general:
+          asset: 1
+          tfmin: 60
+          performance_stat: sharpe
+          datapath: ./master/data-wip
+          raw_data: master/data-raw/data_unseen_20191001_20210920.csv
+        wf:
+          param.path: master//rcode//logic/WfHelper.yaml
+          train_length: 7
+          test_length: 28
+          day_clip_front: 37
+          day_clip_back: 30
+    outs:
+    - path: ./master/data-wip/1/60/09_wf_test_evalued.rds
+      hash: md5
+      md5: d53a5138539f09990c3d07c18f4f3374
+      size: 420395
+    - path: metrics.yaml
+      hash: md5
+      md5: bc5abed9d580ba3fa26e724c66ed2615
+      size: 328

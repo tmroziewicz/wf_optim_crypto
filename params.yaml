@@ -11,7 +11,7 @@ strategy:
 
 wf:
   param.path: master//rcode//logic/WfHelper.yaml
-  train_length: 14
-  test_length: 10
+  train_length: 7
+  test_length: 28
   day_clip_front: 37
   day_clip_back: 30
