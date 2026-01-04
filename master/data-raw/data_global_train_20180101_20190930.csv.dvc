@@ -2,4 +2,4 @@ outs:
 - md5: a0274a73bfe042de8649f94190dfaaa6
   size: 1047240123
   hash: md5
-  path: data_test_20180101_20190930.csv
+  path: data_global_train_20180101_20190930.csv
