@@ -4,7 +4,7 @@ library('optparse')
 library('tibble')
 library('here')
 library('tidyverse')
-
+library('lubridate')
 library('R6')
 
 #Precalculate all data which could be later used withouth need for caluclation 
@@ -74,6 +74,7 @@ data.index <- "train_"
 stats.to.chooose <- dvc.params.yaml$general$performance_stat
 
 head(data.pnl.xts)
+
 
 result.df <- WfHelper.obj$get.trg.rets(data.pnl.xts , positions.xts, max.stat.df =max.stat.df, 
                           src.data.name.str = "train_" , 

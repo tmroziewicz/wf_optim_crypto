@@ -143,8 +143,8 @@ WfHelper <- R6Class(
       
       for( i in 1:nrow(max.stat.df)) {
         
-        start.int <- max.stat.df[i,paste0(trg.data.name.str,"start")]
-        end.int <- max.stat.df[i,paste0(trg.data.name.str,"end")]
+        start.int <-as.numeric(as.character( max.stat.df[i,paste0(trg.data.name.str,"start")]))
+        end.int <-  as.numeric(as.character(max.stat.df[i,paste0(trg.data.name.str,"end")]))
         
         selected_col <-  gsub(src.data.name.str,"", max.stat.df[i,'selected_col'])
         
