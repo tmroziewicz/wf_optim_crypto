@@ -53,3 +53,30 @@ dvc exp run --queue -S  general.asset=0,1,6  -S general.tfmin=60  -S wf.train_le
 ```
   dvc exp show
 ```
+## Export data for further processing and generating chart and tables 
+If you are performing a full data reproduction including walk-forward optimization, the generated outputs must be exported to the wf_optim_crypto_analysis project.
+
+Required Exports:
+
+- 📊 Global Training Experiments: Results of all experiments used to generate heatmaps and overall performance metrics. Example command : 
+```
+dvc exp show {filter data for global training} > global_training.csv
+```
+
+- 📈 Global Training Period: Intermediary data for the best parameter combinations identified in the research:
+
+BTC: Training length 14 / Testing length 10
+BTC: Training length 7 / Testing length 28
+
+This data could be retrieved using dvc checkout {experiment name for 14 10} this checkout experiment and data could be copied 
+```
+dvc checkout {experiment 14 10}
+cp /data-wip/1/60/  wf_optim_crypto_analysis
+```
+
+📉 Unseen Period: Intermediary data for the unseen period, applying optimal global parameters to BTC, ETH, and BNB:
+
+BTC/ETH/BNB: Training length 14 / Testing length 10
+
+BTC/ETH/BNB: Training length 7 / Testing length 28
+    
