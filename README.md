@@ -79,16 +79,17 @@ dvc exp show {filter data for global training} > global_training.csv
     - BTC/ETH/BNB: Training length 14 / Testing length 10 executed on data_unseen_20191001_20210920.csv
     - BTC/ETH/BNB: Training length 7 / Testing length 28 executed on data_unseen_20191001_20210920.csv
 
-### Example - get intemediary data
-  - Example Name of experiment BTC trainig 14 testing 10 for which intermediary data should be copied: crash-taka
-  - first checkout experiment 
-  ```
-  dvc checkout crash-taka      
-  ```
-  - copy all data to `wf_optim_crypto_analysis\data\dvc-exps\TRAIN_14_TEST_10_BTC\`
-      Note: `data-wip\1\60\`- contains 1 which represent BTC and 60 it is time sampling used, for BNB 0 and ETH 6, should be changed respectivelly 
-  ```
-  cp master\data-wip\1\60\*   `wf_optim_crypto_analysis\data\global_training_period_results\dvc-exps\TRAIN_14_TEST_10_BTC` 
-  ```
+📋 Example: Extracting Intermediary Data
+Follow this process to export data for specific experiments (e.g., BTC training 14 / testing 10, experiment name: crash-taka):
 
+Checkout the experiment:
+
+Bash
+dvc checkout crash-taka
+Copy the data to the analysis project: Copy the contents of the master\data-wip\ directory to your analysis folder:
+
+Bash
+# Example for BTC
+cp master\data-wip\1\60\* `wf_optim_crypto_analysis\data\global_training_period_results\dvc-exps\TRAIN_14_TEST_10_BTC`
+[!IMPORTANT] Path Mapping: In the directory data-wip\[AssetID]\[Timeframe]\, the ID 1 represents BTC, 0 represents BNB, and 6 represents ETH. The value 60 represents the time sampling used. Adjust these folder names accordingly when copying for different assets.
 
