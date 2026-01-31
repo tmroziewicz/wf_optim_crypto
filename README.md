@@ -80,14 +80,13 @@ dvc exp show {filter data for global training} > global_training.csv
     - BTC/ETH/BNB: Training length 7 / Testing length 28 executed on data_unseen_20191001_20210920.csv
 
 ### Example - get intemediary data
-  - Example Name of experiment : crash-taka
-  - found name for experiment BTC training 14 testing 10: crash-taka (this was actual name in research)
-  - checkout experiment 
+  - Example Name of experiment BTC trainig 14 testing 10 for which intermediary data should be copied: crash-taka
+  - first checkout experiment 
   ```
   dvc checkout crash-taka      
   ```
-  - copy all data to `wf_optim_crypto_analysis`
-      Note: data-wip\1\60\ - contains 1 which represent BTC and 60 it is time sampling used 
+  - copy all data to `wf_optim_crypto_analysis\data\dvc-exps\TRAIN_14_TEST_10_BTC\`
+      Note: `data-wip\1\60\`- contains 1 which represent BTC and 60 it is time sampling used, for BNB 0 and ETH 6, should be changed respectivelly 
   ```
   cp master\data-wip\1\60\*   `wf_optim_crypto_analysis\data\global_training_period_results\dvc-exps\TRAIN_14_TEST_10_BTC` 
   ```
