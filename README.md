@@ -86,13 +86,10 @@ Checkout the experiment:
 ```
 dvc checkout crash-taka
 ```
-Copy the data to the analysis project: Copy the contents of the master\data-wip\ directory to your analysis folder:
-
-Bash
-# Example for BTC
+Copy the data to the analysis project: Copy the contents of the master\data-wip\ directory to `wf_optim_crypto_analysis analysis folder:
 ```
 cp master\data-wip\1\60\* `wf_optim_crypto_analysis\data\global_training_period_results\dvc-exps\TRAIN_14_TEST_10_BTC`
 ```
 [!IMPORTANT] Path Mapping: In the directory data-wip\[AssetID]\[Timeframe]\, the ID 1 represents BTC, 0 represents BNB, and 6 represents ETH. The value 60 represents the time sampling used. Adjust these folder names accordingly when copying for different assets.
 
-``
+
