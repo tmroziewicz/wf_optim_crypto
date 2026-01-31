@@ -54,29 +54,42 @@ dvc exp run --queue -S  general.asset=0,1,6  -S general.tfmin=60  -S wf.train_le
   dvc exp show
 ```
 ## Export data for further processing and generating chart and tables 
-If you are performing a full data reproduction including walk-forward optimization, the generated outputs must be exported to the wf_optim_crypto_analysis project.
+If you are performing a full data reproduction including walk-forward optimization, the generated outputs must be exported to the wf_optim_crypto_analysis project, so it could generate charts and tables.
 
 Required Exports:
 
-- 📊 Global Training Experiments: Results of all experiments used to generate heatmaps and overall performance metrics. Example command : 
+- 📊 Global Training Experiments: Results of all experiments used to generate heatmaps and overall performance metrics. Example command :
+  -  results should be filtered to make sure that other experiments (from unseen period) does not polute the data 
 ```
 dvc exp show {filter data for global training} > global_training.csv
 ```
 
 - 📈 Global Training Period: Intermediary data for the best parameter combinations identified in the research:
+  - in order to generate equity curves and other statistics `wf_optim_crypto_analysis` need intermediate data which was generated during execution with  best paramaters in global traininng period (see research for details)
+  - In the list of experiments which could be obtained by `dvc exp show` find experiment which was executed with following parameters:
+    - BTC: Training length 14 / Testing length 10 executed on data_global_train_20180101_20190930.csv
+    - BTC: Training length 7 / Testing length 28  executed on data_global_train_20180101_20190930.csv
+  - For both found experiment names checkout experiment and copy intermediary data to respective folder of `wf_optim_crypto_analysis`
 
-BTC: Training length 14 / Testing length 10
-BTC: Training length 7 / Testing length 28
-
-This data could be retrieved using dvc checkout {experiment name for 14 10} this checkout experiment and data could be copied 
-```
-dvc checkout {experiment 14 10}
-cp /data-wip/1/60/  wf_optim_crypto_analysis
-```
+         
 
 📉 Unseen Period: Intermediary data for the unseen period, applying optimal global parameters to BTC, ETH, and BNB:
+  - Intermediary data for unseen perdio execution should also be copied to  `wf_optim_crypto_analysis`
+  - In the list of experiments which could be obtained by `dvc exp show` find experiments which was executed with following parameters:
+    - BTC/ETH/BNB: Training length 14 / Testing length 10 executed on data_unseen_20191001_20210920.csv
+    - BTC/ETH/BNB: Training length 7 / Testing length 28 executed on data_unseen_20191001_20210920.csv
 
-BTC/ETH/BNB: Training length 14 / Testing length 10
+### Example - get intemediary data
+  - Example Name of experiment : crash-taks
+  - found name for experiment BTC training 14 testing 10: crash-taka (this was actual name in research)
+  - checkout experiment 
+  ```
+  dvc checkout crash-taka      
+  ```
+  - copy all data to `wf_optim_crypto_analysis`
+      
+  ```
+  cp data-wip\1\60\*   `wf_optim_crypto_analysis\data\global_training_period_results\dvc-exps\TRAIN_14_TEST_10_BTC` 
+  ```
 
-BTC/ETH/BNB: Training length 7 / Testing length 28
-    
+
