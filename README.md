@@ -87,7 +87,7 @@ The combination of these parameters, the script versions, and the resulting data
     ```
     cp  global_training.csv wf_crypto_analysis\data\global_training
     ```
-  - **Update Configuration**: Open wf_crypto_analysis\params.yaml and update the corresponding entry in the general section under the global_training_exps item to point to your new file.
+  - **Update Configuration**: Open `wf_crypto_analysis\params.yaml` and update the corresponding entry in the `general` section under the `global_training_exps` item to point to your new file.
  
 - 📈 Global Training Period : Intermediary data for the best parameter combinations identified in the research:
   - in order to generate equity curves and other statistics [wf_optim_crypto_analysis](https://github.com/tmroziewicz/wf_optim_crypto_analysis) need intermediate data which was generated during execution with  best paramaters in global traininng period (see research for details)
