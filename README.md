@@ -109,7 +109,7 @@ The combination of these parameters, the script versions, and the resulting data
 
     - Set B: 7-day training / 28-day testing, 60-min frequency, using data_global_train_20180101_20190930.csv
       
-  - Export the Data: (see [Example: Extracting experiments](https://github.com/tmroziewicz/wf_optim_crypto/edit/main/README.md#-example-extracting-experiments)) For each identified experiment, perform a `dvc checkout` and copy the intermediary data to the respective folders in the [wf_optim_crypto_analysis](https://github.com/tmroziewicz/wf_optim_crypto_analysis)
+  - Export the Data: (see [Example: Extracting experiments](https://github.com/tmroziewicz/wf_optim_crypto/main/README.md#-example-extracting-experiments)) For each identified experiment, perform a `dvc checkout` and copy the intermediary data to the respective folders in the [wf_optim_crypto_analysis](https://github.com/tmroziewicz/wf_optim_crypto_analysis)
     
 
          
