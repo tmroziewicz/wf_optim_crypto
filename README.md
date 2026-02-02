@@ -91,13 +91,13 @@ dvc exp show --csv > global_training.csv
     - BTC/ETH/BNB: Training length 7 / Testing length 28 executed on data_unseen_20191001_20210920.csv
 
 📋 Example: Extracting experiments
-Follow this process to export data for specific experiments (e.g., BTC training 14 / testing 10, experiment name: crash-taka):
-
-Checkout the experiment:
+Follow this process to export data for specific experiments 
+- Lets say experiment to be exported is e.g. BTC training 14 day/ testing 10, for 60 minutes and global training period, experiment name: crash-taka.
+- Checkout the experimnt, this bring all data for this experiment to filesystem
 ```
 dvc checkout crash-taka
 ```
-Copy the data to the analysis project: Copy the contents of the master\data-wip\ directory to `wf_optim_crypto_analysis analysis folder:
+- Copy the data to the analysis project: Copy the contents of the data-wip\[AssetID]\[Timeframe]\, where AssetID BTC 1 , BNB 0 , ETH 6 to `wf_optim_crypto_analysis data respective folder:
 ```
 cp master\data-wip\1\60\* `wf_optim_crypto_analysis\data\global_training_period_results\dvc-exps\TRAIN_14_TEST_10_BTC`
 ```
