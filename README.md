@@ -4,7 +4,7 @@ authors :
 - Robert Ślepaczuk   ORCID: https://orcid.org/0000-0001-5227-2014, corresponding author: rslepaczuk@wne.uw.edu.pl 
 
 ## Overview
-This repository contains the code to reproduce the raw trading data for the research described in the paper. These datasets serve as the upstream source for the WF_OPTIM_CRYPTO_ANALYSIS project, which handles the final visual representation and reporting.
+This repository contains the code to reproduce the raw trading data for the research described in the paper. These datasets serve as the upstream source for the [wf_optim_crypto_analysis](https://github.com/tmroziewicz/wf_optim_crypto_analysis) project, which handles the final visual representation and reporting. 
 
 The data generated here represents walk-forward optimization results across several dimensions:
 - Variable Window Lengths: Various lengths for training and testing steps of the walk-forward optimization.
@@ -54,7 +54,7 @@ dvc exp run --queue -S  general.asset=0,1,6  -S general.tfmin=60  -S wf.train_le
   dvc exp show
 ```
 ## Export data for further processing and generating chart and tables 
-If you are performing a full data reproduction including walk-forward optimization, the generated outputs must be exported to the wf_optim_crypto_analysis project, so it could generate charts and tables.
+If you are performing a full data reproduction including walk-forward optimization, the generated outputs must be exported to the [wf_optim_crypto_analysis](https://github.com/tmroziewicz/wf_optim_crypto_analysis) project, so it could generate charts and tables.
 ### What is an experiment?
 DVC uses the concept of an experiment to encapsulate the specific set of parameters, code, and data used during a single execution. In the context of this project, an experiment represents a complete walk-forward optimization run defined by:
 
@@ -64,7 +64,7 @@ DVC uses the concept of an experiment to encapsulate the specific set of paramet
 
 - Dataset: The source data used (e.g., the global training period).
 
-The combination of these parameters, the script versions, and the resulting datasets constitute a unique experiment. To perform the final visualization and reporting, specific experiments must be exported to the wf_optim_crypto_analysis project.
+The combination of these parameters, the script versions, and the resulting datasets constitute a unique experiment. To perform the final visualization and reporting, specific experiments must be exported to the [wf_optim_crypto_analysis](https://github.com/tmroziewicz/wf_optim_crypto_analysis) project.
 
 ### Required Exports:
 
@@ -76,19 +76,19 @@ dvc exp show --csv > global_training.csv
 ```
 
 - 📈 Global Training Period: Intermediary data for the best parameter combinations identified in the research:
-  - in order to generate equity curves and other statistics `wf_optim_crypto_analysis` need intermediate data which was generated during execution with  best paramaters in global traininng period (see research for details)
+  - in order to generate equity curves and other statistics [wf_optim_crypto_analysis](https://github.com/tmroziewicz/wf_optim_crypto_analysis) need intermediate data which was generated during execution with  best paramaters in global traininng period (see research for details)
   - In the list of experiments which could be obtained by `dvc exp show` find experiment which was executed with following parameters:
     - BTC: Training length 14 days/Testing length 10  days, frequency 60 min, executed on data_global_train_20180101_20190930.csv
     - BTC: Training length 7 days/Testing length 28  days, frequency 60 min, executed on data_global_train_20180101_20190930.csv
-  - For both found experiments names checkout experiment and copy intermediary data to respective folder of `wf_optim_crypto_analysis`
+  - For both found experiments names checkout experiment and copy intermediary data to respective folder of [wf_optim_crypto_analysis](https://github.com/tmroziewicz/wf_optim_crypto_analysis)
 
          
 
 📉 Unseen Period: Intermediary data for the unseen period, applying optimal global parameters to BTC, ETH, and BNB:
-  - Intermediary data for unseen perdio execution should also be copied to  `wf_optim_crypto_analysis`
+  - Intermediary data for unseen perdio execution should also be copied to [wf_optim_crypto_analysis](https://github.com/tmroziewicz/wf_optim_crypto_analysis)
   - In the list of experiments which could be obtained by `dvc exp show` find experiments which was executed with following parameters:
-    - BTC/ETH/BNB: Training length 14 / Testing length 10 executed on data_unseen_20191001_20210920.csv
-    - BTC/ETH/BNB: Training length 7 / Testing length 28 executed on data_unseen_20191001_20210920.csv
+    - BTC/ETH/BNB: Training length 14 days/Testing length 10 days executed on data_unseen_20191001_20210920.csv
+    - BTC/ETH/BNB: Training length 7 days/Testing length 28 days executed on data_unseen_20191001_20210920.csv
 
 📋 Example: Extracting experiments
 Follow this process to export data for specific experiments 
@@ -97,7 +97,8 @@ Follow this process to export data for specific experiments
 ```
 dvc checkout crash-taka
 ```
-- Copy the data to the analysis project: Copy the contents of the data-wip\[AssetID]\[Timeframe]\, where AssetID BTC 1 , BNB 0 , ETH 6 to `wf_optim_crypto_analysis data respective folder:
+- Copy the data to the analysis project: Copy the contents of the data-wip\\[AssetID]\\[Timeframe]\\, where AssetID BTC 1 , BNB 0 , ETH 6 to [wf_optim_crypto_analysis](https://github.com/tmroziewicz/wf_optim_crypto_analysis)
+   data respective folder:
 ```
 cp master\data-wip\1\60\* `wf_optim_crypto_analysis\data\global_training_period_results\dvc-exps\TRAIN_14_TEST_10_BTC`
 ```
