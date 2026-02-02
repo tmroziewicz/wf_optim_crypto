@@ -77,16 +77,17 @@ The combination of these parameters, the script versions, and the resulting data
 
 ### Required Exports:
 
-- 📊 Global Training Experiments List with metrics: Results of all experiments used to generate heatmaps and overall performance metrics. Example command :
-  
-  -  results should be filtered to make sure that other experiments (from unseen period) does not polute the data
-    
-  -  results are exported to CSV so later on, could be easily filetered, before planting them to data folder of `wf_optim_crypto_analysis`.
-  ```
-  dvc exp show --csv > global_training.csv  
-  ```
-  - copy file to `wf_crypto_analysis\data\global_training`
-  - open file `wf_crypto_analysis\params.yaml` and  update yaml entry in section `general` item `global_trainig_exps` with name of newly generated csv file
+- 📊 Exporting Global Training Metrics
+    To generate heatmaps and performance tables, you must export the metrics from all global training experiments.
+    - **CSV Export**: Export the results to a CSV file for easy auditing and filtering before moving them to the analysis project. Ensure results are filtered so that experiments from the "unseen period" do not pollute the global training data.
+    ```
+    dvc exp show --csv > global_training.csv  
+    ```
+    - **Move the data**: copy file to `wf_crypto_analysis\data\global_training`
+    ```
+    cp  global_training.csv wf_crypto_analysis\data\global_training
+    ```
+  - **Update Configuration**: Open wf_crypto_analysis\params.yaml and update the corresponding entry in the general section under the global_training_exps item to point to your new file.
  
 - 📈 Global Training Period : Intermediary data for the best parameter combinations identified in the research:
   - in order to generate equity curves and other statistics [wf_optim_crypto_analysis](https://github.com/tmroziewicz/wf_optim_crypto_analysis) need intermediate data which was generated during execution with  best paramaters in global traininng period (see research for details)
