@@ -55,21 +55,32 @@ dvc exp run --queue -S  general.asset=0,1,6  -S general.tfmin=60  -S wf.train_le
 ```
 ## Export data for further processing and generating chart and tables 
 If you are performing a full data reproduction including walk-forward optimization, the generated outputs must be exported to the wf_optim_crypto_analysis project, so it could generate charts and tables.
+### What is an experiment?
+DVC uses the concept of an experiment to encapsulate the specific set of parameters, code, and data used during a single execution. In the context of this project, an experiment represents a complete walk-forward optimization run defined by:
 
-Required Exports:
+- Time Frequency: e.g., 60-minute intervals.
+
+- Window Periods: Specific training and testing lengths (e.g., 14 days and 10 days).
+
+- Dataset: The source data used (e.g., the global training period).
+
+The combination of these parameters, the script versions, and the resulting datasets constitute a unique experiment. To perform the final visualization and reporting, specific experiments must be exported to the wf_optim_crypto_analysis project.
+
+### Required Exports:
 
 - 📊 Global Training Experiments: Results of all experiments used to generate heatmaps and overall performance metrics. Example command :
-  -  results should be filtered to make sure that other experiments (from unseen period) does not polute the data 
+  -  results should be filtered to make sure that other experiments (from unseen period) does not polute the data
+  -  results are exported to CSV so later on, could be easily filetered, before planting them to data folder of `wf_optim_crypto_analysis`
 ```
-dvc exp show {filter data for global training} > global_training.csv
+dvc exp show --csv > global_training.csv
 ```
 
 - 📈 Global Training Period: Intermediary data for the best parameter combinations identified in the research:
   - in order to generate equity curves and other statistics `wf_optim_crypto_analysis` need intermediate data which was generated during execution with  best paramaters in global traininng period (see research for details)
   - In the list of experiments which could be obtained by `dvc exp show` find experiment which was executed with following parameters:
-    - BTC: Training length 14 / Testing length 10 executed on data_global_train_20180101_20190930.csv
-    - BTC: Training length 7 / Testing length 28  executed on data_global_train_20180101_20190930.csv
-  - For both found experiment names checkout experiment and copy intermediary data to respective folder of `wf_optim_crypto_analysis`
+    - BTC: Training length 14 days/Testing length 10  days, frequency 60 min, executed on data_global_train_20180101_20190930.csv
+    - BTC: Training length 7 days/Testing length 28  days, frequency 60 min, executed on data_global_train_20180101_20190930.csv
+  - For both found experiments names checkout experiment and copy intermediary data to respective folder of `wf_optim_crypto_analysis`
 
          
 
@@ -79,7 +90,7 @@ dvc exp show {filter data for global training} > global_training.csv
     - BTC/ETH/BNB: Training length 14 / Testing length 10 executed on data_unseen_20191001_20210920.csv
     - BTC/ETH/BNB: Training length 7 / Testing length 28 executed on data_unseen_20191001_20210920.csv
 
-📋 Example: Extracting Intermediary Data
+📋 Example: Extracting experiments
 Follow this process to export data for specific experiments (e.g., BTC training 14 / testing 10, experiment name: crash-taka):
 
 Checkout the experiment:
@@ -90,6 +101,6 @@ Copy the data to the analysis project: Copy the contents of the master\data-wip\
 ```
 cp master\data-wip\1\60\* `wf_optim_crypto_analysis\data\global_training_period_results\dvc-exps\TRAIN_14_TEST_10_BTC`
 ```
-[!IMPORTANT] Path Mapping: In the directory data-wip\[AssetID]\[Timeframe]\, the ID 1 represents BTC, 0 represents BNB, and 6 represents ETH. The value 60 represents the time sampling used. Adjust these folder names accordingly when copying for different assets.
+[!IMPORTANT] Path Mapping: In the directory data-wip\[AssetID]\[Timeframe]\, the ID 1 represents BTC, 0 represents BNB, and 6 represents ETH. The value 60 represents the time sampling used. Adjust these folder names accordingly when copying for different experiment.
 
 
