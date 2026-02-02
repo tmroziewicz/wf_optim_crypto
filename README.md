@@ -125,6 +125,8 @@ The combination of these parameters, the script versions, and the resulting data
     - BTC/ETH/BNB: Training length 14 days/Testing length 10 days executed on data_unseen_20191001_20210920.csv
 
     - BTC/ETH/BNB: Training length 7 days/Testing length 28 days executed on data_unseen_20191001_20210920.csv
+  
+  -  Export the Data: (see [Example: Extracting experiments](https://github.com/tmroziewicz/wf_optim_crypto/blob/main/README.md#-example-extracting-experiments)) For each identified experiment, perform a `dvc checkout` and copy the intermediary data to the respective folders in the [wf_optim_crypto_analysis](https://github.com/tmroziewicz/wf_optim_crypto_analysis)
 
 #### 📋 Example: Extracting experiments
 
