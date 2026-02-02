@@ -101,13 +101,16 @@ The combination of these parameters, the script versions, and the resulting data
 
   Experiment results and all intermediary data for the two best-performing parameter sets identified during the research for the BTC global training period:
     
-  - In the list of experiments which could be obtained by `dvc exp show` find experiment which was executed with following parameters:
-    
-    - BTC: Training length 14 days/Testing length 10  days, frequency 60 min, executed on data_global_train_20180101_20190930.csv
+  - **Locate the Experiments**:
 
-    - BTC: Training length 7 days/Testing length 28  days, frequency 60 min, executed on data_global_train_20180101_20190930.csv
+    Run dvc exp show and identify the experiment names corresponding to the following parameter sets:
+    
+    - Set A: 14-day training / 10-day testing, 60-min frequency, using data_global_train_20180101_20190930.csv.
+
+    - Set B: 7-day training / 28-day testing, 60-min frequency, using data_global_train_20180101_20190930.csv
       
-  - For both found experiments names checkout experiment and copy intermediary data to respective folder of [wf_optim_crypto_analysis](https://github.com/tmroziewicz/wf_optim_crypto_analysis)
+  - Export the Data: (see [Example: Extracting experiments](https://github.com/tmroziewicz/wf_optim_crypto/edit/main/README.md#-example-extracting-experiments)) For each identified experiment, perform a `dvc checkout` and copy the intermediary data to the respective folders in the [wf_optim_crypto_analysis](https://github.com/tmroziewicz/wf_optim_crypto_analysis)
+    
 
          
 
