@@ -21,7 +21,7 @@ The data generated here represents walk-forward optimization results across seve
 
 - 📥 master/data-raw: all raw/input data are stored
   
-- 📥 master/data-raw: all data generated at each stage of processing
+- 📥 master/data-wip: all data generated at each stage of processing
   
 - 📜 master/rcode: R scripts executed by the DVC pipeline
   
@@ -37,7 +37,7 @@ The data generated here represents walk-forward optimization results across seve
 
 ## Prerequisite 
 
-Follow the same procedure as specified in the wf_optim_crypto_analysis section [Prerequisite](https://github.com/tmroziewicz/wf_optim_crypto_analysis?tab=readme-ov-file#prerequisite)
+Follow the same procedure as specified in the `wf_optim_crypto_analysis` section [Prerequisite](https://github.com/tmroziewicz/wf_optim_crypto_analysis?tab=readme-ov-file#prerequisite)
 
 ## How to Reproduce Results
 - 🐍 Open Anaconda Prompt: (Skip this if you chose manual installation). Activate the environment created in the prerequisites:
@@ -61,6 +61,14 @@ dvc exp run --queue -S  general.tfmin=1,5,10,15,30,60  -S wf.train_length=1,2,3,
 ```
 dvc exp run --queue -S  general.asset=0,1,6  -S general.tfmin=60  -S wf.train_length=14  -S wf.test_length=10 -S general.performance_stat=sharpe -S general.raw_data=master/data-raw/data_unseen_20191001_20210920.csv
 dvc exp run --queue -S  general.asset=0,1,6  -S general.tfmin=60  -S wf.train_length=7   -S wf.test_length=28 -S general.performance_stat=sharpe -S general.raw_data=master/data-raw/data_unseen_20191001_20210920.csv
+```
+- :rocket: To start executing the queue, run the following command:
+```
+dvc queue start
+```
+- ⏳ To monitor the execution progress, use:
+```
+dvc queue status 
 ```
 - 📋 View Results: After the scripts finish, run the following command to list the DVC experiment results:
 ```
