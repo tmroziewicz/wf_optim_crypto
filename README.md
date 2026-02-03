@@ -42,11 +42,11 @@ Follow the same procedure as specified in the `wf_optim_crypto_analysis` section
 ## How to Reproduce Results
 - 🐍 Open Anaconda Prompt: (Skip this if you chose manual installation). Activate the environment created in the prerequisites:
 ```
-conda activate wf_optim
+  conda activate wf_optim
 ```
 - 📂 Clone repository
 ```
-git clone https://github.com/tmroziewicz/wf_optim_crypto wf_optim_crypto
+  git clone https://github.com/tmroziewicz/wf_optim_crypto wf_optim_crypto
 ```
 - 📂 Navigate: Go to your cloned repository folder wf_optim_crypto 
 - 📥 Data Acquisition: Download wf_optim_crypto.zip from https://drive.google.com/file/d/10DIfheR9Ub9KtvffmHcGcdc7gG3VEdWl/view?usp=drive_link and unzip it in `master\data-raw\`
@@ -55,20 +55,20 @@ git clone https://github.com/tmroziewicz/wf_optim_crypto wf_optim_crypto
   - `data_unseen_20191001_20210920.csv` - Unseen period data.
 - 📈 Reproduce Global Train Period: Execute the following command to queue execution using the same parameters as in the paper:
 ```
-dvc exp run --queue -S  general.tfmin=1,5,10,15,30,60  -S wf.train_length=1,2,3,5,7,10,14,21,28  -S wf.test_length=1,2,3,5,7,10,14,21,28  -S general.performance_stat=sharpe -S general.raw_data=master/data-raw/data_global_train_20180101_20190930.csv
+  dvc exp run --queue -S  general.tfmin=1,5,10,15,30,60  -S wf.train_length=1,2,3,5,7,10,14,21,28  -S wf.test_length=1,2,3,5,7,10,14,21,28  -S general.performance_stat=sharpe -S general.raw_data=master/data-raw/data_global_train_20180101_20190930.csv
 ```
 - 📉 Reproduce Unseen Period: Execute these commands to queue execution for the unseen period using the research parameters:
 ```
-dvc exp run --queue -S  general.asset=0,1,6  -S general.tfmin=60  -S wf.train_length=14  -S wf.test_length=10 -S general.performance_stat=sharpe -S general.raw_data=master/data-raw/data_unseen_20191001_20210920.csv
-dvc exp run --queue -S  general.asset=0,1,6  -S general.tfmin=60  -S wf.train_length=7   -S wf.test_length=28 -S general.performance_stat=sharpe -S general.raw_data=master/data-raw/data_unseen_20191001_20210920.csv
+  dvc exp run --queue -S  general.asset=0,1,6  -S general.tfmin=60  -S wf.train_length=14  -S wf.test_length=10 -S general.performance_stat=sharpe -S general.raw_data=master/data-raw/data_unseen_20191001_20210920.csv
+  dvc exp run --queue -S  general.asset=0,1,6  -S general.tfmin=60  -S wf.train_length=7   -S wf.test_length=28 -S general.performance_stat=sharpe -S general.raw_data=master/data-raw/data_unseen_20191001_20210920.csv
 ```
 - :rocket: To start executing the queue, run the following command:
 ```
-dvc queue start
+  dvc queue start
 ```
 - ⏳ To monitor the execution progress, use:
 ```
-dvc queue status 
+  dvc queue status 
 ```
 - 📋 View Results: After the scripts finish, run the following command to list the DVC experiment results:
 ```
@@ -76,15 +76,15 @@ dvc queue status
 ```
 ## Export data for further processing and generating chart and tables 
 
-If you are performing a full data reproduction including walk-forward optimization, the generated outputs must be exported to the [wf_optim_crypto_analysis](https://github.com/tmroziewicz/wf_optim_crypto_analysis) project, so it could generate charts and tables.
+If you are performing a full data reproduction—including the walk-forward optimization—the generated outputs must be exported to the [wf_optim_crypto_analysis](https://github.com/tmroziewicz/wf_optim_crypto_analysis) project to enable the generation of charts and tables.
 
 ### What is an experiment?
 
-DVC uses the concept of an experiment to encapsulate the specific set of parameters, code, and data used during a single execution. In the context of this project, an experiment represents a complete walk-forward optimization run defined by:
+DVC uses the concept of an experiment to encapsulate the specific set of parameters, code, and data used during a single execution. In the context of this project, an experiment represents a complete walk-forward run defined by:
 
 - Time Frequency: e.g., 60-minute intervals.
 
-- Window Periods: Specific training and testing lengths (e.g., 14 days and 10 days).
+- WF Window Periods: Specific training and testing durations (e.g., 14-day training and 10-day testing intervals).
 
 - Dataset: The source data used (e.g., the global training period).
 
@@ -99,11 +99,13 @@ The combination of these parameters, the script versions, and the resulting data
     ```
     dvc exp show --csv > global_training.csv  
     ```
+        
     - **Move the data**: copy file to `wf_crypto_analysis\data\global_training`
     ```
     cp  global_training.csv wf_crypto_analysis\data\global_training
     ```
-  - **Update Configuration**: Open `wf_crypto_analysis\params.yaml` and update the corresponding entry in the `general` section under the `global_training_exps` item to point to your new file.
+    
+    - **Update Configuration**: Open `wf_crypto_analysis\params.yaml` and update the corresponding entry in the `general` section under the `global_training_exps` item to point to your new file.
  
 - 📈 **Global Training Period** :
 
@@ -111,43 +113,43 @@ The combination of these parameters, the script versions, and the resulting data
     
   - **Locate the Experiments**:
 
-    Run dvc exp show and identify the experiment names corresponding to the following parameter sets:
+    Run `dvc exp show` and identify the experiment names corresponding to the following parameter sets:
     
     - Set A: 14-day training / 10-day testing, 60-min frequency, using data_global_train_20180101_20190930.csv.
 
     - Set B: 7-day training / 28-day testing, 60-min frequency, using data_global_train_20180101_20190930.csv
       
   - Export the Data: (see [Example: Extracting experiments](https://github.com/tmroziewicz/wf_optim_crypto/blob/main/README.md#-example-extracting-experiments)) For each identified experiment, perform a `dvc checkout` and copy the intermediary data to the respective folders in the [wf_optim_crypto_analysis](https://github.com/tmroziewicz/wf_optim_crypto_analysis)
-    
-
-         
-
+           
 - 📉 **Unseen Period**:
 
   Experiment results generated by applying the optimal parameter sets, selected during the global training period, to the unseen (out-of-sample) data for BTC, ETH, and BNB:
-  
-  - Intermediary data for unseen perdio execution should also be copied to [wf_optim_crypto_analysis](https://github.com/tmroziewicz/wf_optim_crypto_analysis)
+ 
+  - **Locate the Experiments**:
 
-  - In the list of experiments which could be obtained by `dvc exp show` find experiments which was executed with following parameters:
+    Run `dvc exp show` and identify the experiment names corresponding to the following parameter sets:
   
     - BTC/ETH/BNB: Training length 14 days/Testing length 10 days executed on data_unseen_20191001_20210920.csv
 
     - BTC/ETH/BNB: Training length 7 days/Testing length 28 days executed on data_unseen_20191001_20210920.csv
   
-  -  Export the Data: (see [Example: Extracting experiments](https://github.com/tmroziewicz/wf_optim_crypto/blob/main/README.md#-example-extracting-experiments)) For each identified experiment, perform a `dvc checkout` and copy the intermediary data to the respective folders in the [wf_optim_crypto_analysis](https://github.com/tmroziewicz/wf_optim_crypto_analysis)
+  -  Export the Data: For each of the experiments identified above, export the intermediary data to the downstream analysis project. See [Example: Extracting experiments](https://github.com/tmroziewicz/wf_optim_crypto/blob/main/README.md#-example-extracting-experiments))  for more     detailed instruction
+
 
 #### 📋 Example: Extracting experiments
 
-To analyze specific results, you must export the data generated by a DVC experiment (e.g., BTC: 14-day training / 10-day testing at a 60-minute frequency, experiment name: crash-taka).
+To analyze specific results, you must export the data generated by a DVC experiment (e.g. BTC: 14-day training / 10-day testing at a 60-minute frequency, experiment name: crash-taka).
 
 - **Checkout the Experiment** This command synchronizes the local filesystem with the specific parameters and data of that experiment:
 ```
-dvc checkout crash-taka
+  dvc checkout crash-taka
 ```
-- **Copy Data** to the Analysis Project Transfer the contents of the data-wip directory to the corresponding folder in your cloned `wf_optim_crypto_analysis` repository. 
+
+- **Copy Data** to the Analysis Project Transfer the contents of the `master\data-wip` directory to the corresponding folder in your cloned `wf_optim_crypto_analysis` repository. 
 ```
-cp master\data-wip\1\60\* ..\wf_optim_crypto_analysis\data\global_training_period_results\dvc-exps\TRAIN_14_TEST_10_BTC
+  cp master\data-wip\1\60\* ..\wf_optim_crypto_analysis\data\global_training_period_results\dvc-exps\TRAIN_14_TEST_10_BTC
 ```
+
   [!IMPORTANT] **Target Folder**:
    
    - **Custom Parameters**: If you are exporting data using parameters different from those defined in the original research, ensure the export folder name is updated to reflect these new settings.
