@@ -40,6 +40,7 @@ The data generated here represents walk-forward optimization results across seve
 Follow the same procedure as specified in the `wf_optim_crypto_analysis` section [Prerequisite](https://github.com/tmroziewicz/wf_optim_crypto_analysis?tab=readme-ov-file#prerequisite)
 
 ## How to Reproduce Results
+
 - 🐍 Open Anaconda Prompt: (Skip this if you chose manual installation). Activate the environment created in the prerequisites:
 ```
   conda activate wf_optim
@@ -49,7 +50,7 @@ Follow the same procedure as specified in the `wf_optim_crypto_analysis` section
   git clone https://github.com/tmroziewicz/wf_optim_crypto wf_optim_crypto
 ```
 - 📂 Navigate: Go to your cloned repository folder wf_optim_crypto 
-- 📥 Data Acquisition: Download wf_optim_crypto.zip from https://drive.google.com/file/d/10DIfheR9Ub9KtvffmHcGcdc7gG3VEdWl/view?usp=drive_link and unzip it in `master\data-raw\`
+- 📥 Data Acquisition: Download wf_optim_crypto.zip from [GDrive](https://drive.google.com/file/d/10DIfheR9Ub9KtvffmHcGcdc7gG3VEdWl/view?usp=drive_link) and unzip it in `master\data-raw\`
 - Ensure `master\data-raw\` contains the following files:
   - `data_global_train_20180101_20190930.csv` - Global training data.
   - `data_unseen_20191001_20210920.csv` - Unseen period data.
