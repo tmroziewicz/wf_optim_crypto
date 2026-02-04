@@ -84,7 +84,7 @@ Follow the same procedure as specified in the `wf_optim_crypto_analysis` section
   dvc exp show
 ```
 
-## Export data for further processing and generating chart and tables 
+## Export Guide
 
 If you are performing a full data reproduction—including the walk-forward optimization—the generated outputs must be exported to the [wf_optim_crypto_analysis](https://github.com/tmroziewicz/wf_optim_crypto_analysis) project to enable the generation of charts and tables.
 
