@@ -52,7 +52,7 @@ Follow the same procedure as specified in the `wf_optim_crypto_analysis` section
 ```
 - 📂 Navigate: Go to your cloned repository folder wf_optim_crypto 
 
-- 📥 Data Acquisition: Download wf_optim_crypto.zip from [GDrive](https://drive.google.com/file/d/10DIfheR9Ub9KtvffmHcGcdc7gG3VEdWl/view?usp=drive_link) and unzip it in `master\data-raw\`
+- 📥 Data Acquisition: Download [wf_optim_crypto.zip](https://drive.google.com/file/d/10DIfheR9Ub9KtvffmHcGcdc7gG3VEdWl/view?usp=drive_link) (830 MB) from Google Drive and unzip it in `master\data-raw\`
 
 - Ensure `master\data-raw\` contains the following files:
   - `data_global_train_20180101_20190930.csv` - Global training data.
