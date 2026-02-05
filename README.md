@@ -19,9 +19,9 @@ The data generated here represents walk-forward optimization results across seve
   
 ## Repository Structure
 
-- 📥 master/data-raw: all raw/input data are stored
+- 📂 master/data-raw: all raw/input data are stored
   
-- 📥 master/data-wip: all data generated at each stage of processing
+- 📂 master/data-wip: all data generated at each stage of processing
   
 - 📜 master/rcode: R scripts executed by the DVC pipeline
   
@@ -46,7 +46,7 @@ Follow the same procedure as specified in the `wf_optim_crypto_analysis` section
   conda activate wf_optim
 ```
 
-- 📂 Clone repository
+- 📥 Clone repository
 ```
   git clone https://github.com/tmroziewicz/wf_optim_crypto wf_optim_crypto
 ```
