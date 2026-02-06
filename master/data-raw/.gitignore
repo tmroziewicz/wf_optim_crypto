@@ -1,5 +1,2 @@
-/train_300klines.csv
-/train_3mln.csv
-/data_test_20180101_20190630.csv
-/data_test_20180101_20190930.csv
+/data_global_train_20180101_20190930.csv
 /data_unseen_20191001_20210920.csv
