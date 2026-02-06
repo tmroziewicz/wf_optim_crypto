@@ -122,7 +122,7 @@ Follow the same procedure as specified in the `wf_optim_crypto_analysis` section
 
 ## Export Guide
 
-If you are performing a full data reproduction-including the walk-forward optimization - the generated outputs must be exported to the [wf_optim_crypto_analysis](https://github.com/tmr-crypto/wf_optim_crypto_analysis) project to enable the generation of charts and tables.
+If you are performing a full data reproduction - including the walk-forward optimization - the generated outputs must be exported to the [wf_optim_crypto_analysis](https://github.com/tmr-crypto/wf_optim_crypto_analysis) project to enable the generation of charts and tables.
 
 ### What is an experiment?
 
