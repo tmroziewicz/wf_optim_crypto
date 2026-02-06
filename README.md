@@ -1,4 +1,17 @@
-﻿# A novel approach to trading strategy parameter optimization, using double out-of-sample data and walk-forward techniques on cryptocurrency market 
+
+<div align="center">
+
+# Walk-Forward Crypto Optimization - A novel approach to trading strategy parameter optimization, using double out-of-sample data and walk-forward techniques on cryptocurrency market  📈
+### High-performance backtesting and data pipeline orchestration.
+
+![R](https://img.shields.io/badge/r-%23276DC3.svg?style=for-the-badge&logo=r&logoColor=white)
+![DVC](https://img.shields.io/badge/DVC-945DDB?style=flat-square&logo=data-version-control&logoColor=white)
+![Python](https://img.shields.io/badge/Python-3.9+-blue?style=flat-square&logo=python)
+![Conda](https://img.shields.io/badge/Conda-Managed-green?style=flat-square&logo=anaconda)
+
+
+</div>
+
 authors :
 - Tomasz Mroziewicz  ORCID: https://orcid.org/0009-0003-6540-6554, email: tomasz.mroziewicz2@gmail.com
 - Robert Ślepaczuk   ORCID: https://orcid.org/0000-0001-5227-2014, corresponding author: rslepaczuk@wne.uw.edu.pl 
