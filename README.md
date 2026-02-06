@@ -34,7 +34,10 @@ when a portfolio combining Buy-and-Hold with our strategies outperformed all ind
 strategies and Buy-and-Hold alone, achieving the highest overall performance and a 50%
 reduction in drawdown. A conservative fee of 0.1\% per transaction was included in all calculations. A cost sensitivity analysis was performed as a sanity check, revealing that the strategy's break-even point was around 0.4\% per transaction. This research highlights the importance of optimizing walk-forward window lengths and emphasizing the value of single-time out-of-sample testing for reliable strategy evaluation.
 
-<img width="400" alt="image" src="https://github.com/user-attachments/assets/6644af88-b8d4-4517-aba3-3b9ba58875cd" />                  <img width="395"  alt="image" src="https://github.com/user-attachments/assets/8d4dfe3d-70a2-4c42-8b4c-5cebf5a0873f" />
+<img width="420"  alt="546155561-6644af88-b8d4-4517-aba3-3b9ba58875cd" src="https://github.com/user-attachments/assets/5f14e8bb-af60-498e-9220-bd5e89322748" />     <img width="420"  alt="546155120-8d4dfe3d-70a2-4c42-8b4c-5cebf5a0873f_small" src="https://github.com/user-attachments/assets/0af83d09-332a-4b0e-b0a0-64f3740a2ffc" />
+
+
+
 
 
 ## Overview
