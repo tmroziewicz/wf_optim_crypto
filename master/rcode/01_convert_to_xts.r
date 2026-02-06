@@ -34,33 +34,12 @@ opt <- parse_args(parser)
 
 print(opt)
 
-#input.csv.df <- read.csv(opt$inputfile)
-#setwd("C:\\todo-p\\UW\\Master-Thesis\\master\\")
-
-fileout <- "master/data-wip/01_converted_to_xts.rds"
-
 data.raw <- read_data(opt$inputfile)
-#data.raw <- strategy.obj$read_data(dvc.params.yaml$general$raw_data)
-#data.raw <- read.csv(dvc.params.yaml$general$raw_data, encoding = "UTF-8")
-#names(data.raw)
 data.xts <- transform_data(data.raw)
-
-#df.xts <- read_file_to_xts("c:/todo-p/UW/Master-Thesis/master/data-raw/train_300klines.csv")
 print("current working directory ")
-
 getwd()
-
 print("before saving ")
-
-#asset.str <- dvc.params.yaml$general$asset
-
 saveRDS(data.xts, opt$outputfile)
-
-
-#currencies <- currencies[,params$`01_select`$currency]
-
-#saveRDS(currencies, opt$outputfile)
-
 
 
 
