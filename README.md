@@ -5,7 +5,7 @@ authors :
 
 ## Overview
 
-This repository contains the code to reproduce the raw trading data for the research described in the paper. These datasets serve as the upstream source for the [wf_optim_crypto_analysis](https://github.com/tmroziewicz/wf_optim_crypto_analysis) project, which handles the final visual representation and reporting. 
+This repository contains the code to reproduce the raw trading data for the research described in the paper. These datasets serve as the upstream source for the [wf_optim_crypto_analysis](https://github.com/tmr-crypto/wf_optim_crypto_analysis) project, which handles the final visual representation and reporting. 
 
 The data generated here represents walk-forward optimization results across several key dimensions:
 
@@ -37,7 +37,7 @@ The data generated here represents walk-forward optimization results across seve
 
 ## Prerequisite 
 
-Follow the same procedure as specified in the `wf_optim_crypto_analysis` section [Prerequisite](https://github.com/tmroziewicz/wf_optim_crypto_analysis?tab=readme-ov-file#prerequisite)
+Follow the same procedure as specified in the `wf_optim_crypto_analysis` section [Prerequisite](https://github.com/tmr-crypto/wf_optim_crypto_analysis#prerequisite)
 
 ## How to Reproduce Results
 
@@ -48,7 +48,7 @@ Follow the same procedure as specified in the `wf_optim_crypto_analysis` section
 
 - 📥 Clone repository
 ```
-  git clone https://github.com/tmroziewicz/wf_optim_crypto wf_optim_crypto
+  git clone https://github.com/tmr-crypto/wf_optim_crypto wf_optim_crypto
 ```
 - 📂 Navigate: Go to your cloned repository folder wf_optim_crypto 
 
@@ -86,7 +86,7 @@ Follow the same procedure as specified in the `wf_optim_crypto_analysis` section
 
 ## Export Guide
 
-If you are performing a full data reproduction—including the walk-forward optimization—the generated outputs must be exported to the [wf_optim_crypto_analysis](https://github.com/tmroziewicz/wf_optim_crypto_analysis) project to enable the generation of charts and tables.
+If you are performing a full data reproduction—including the walk-forward optimization—the generated outputs must be exported to the [wf_optim_crypto_analysis](https://github.com/tmr-crypto/wf_optim_crypto_analysis) project to enable the generation of charts and tables.
 
 ### What is an experiment?
 
@@ -98,7 +98,7 @@ DVC uses the concept of an experiment to encapsulate the specific set of paramet
 
 - Dataset: The source data used (e.g., the global training period).
 
-The combination of these parameters, the script versions, and the resulting datasets constitute a unique experiment. To perform the final visualization and reporting, specific experiments must be exported to the [wf_optim_crypto_analysis](https://github.com/tmroziewicz/wf_optim_crypto_analysis) project.
+The combination of these parameters, the script versions, and the resulting datasets constitute a unique experiment. To perform the final visualization and reporting, specific experiments must be exported to the [wf_optim_crypto_analysis](https://github.com/tmr-crypto/wf_optim_crypto_analysis) project.
 
 ### Required Exports:
 
@@ -129,7 +129,7 @@ The combination of these parameters, the script versions, and the resulting data
 
     - Set B: 7-day training / 28-day testing, 60-min frequency, using data_global_train_20180101_20190930.csv
       
-  - Export the Data: For each of the experiments identified above, export the intermediary data to the `wf_optim_crypto_analysis`. See [Example: Extracting experiments](https://github.com/tmroziewicz/wf_optim_crypto/blob/main/README.md#-example-extracting-experiments))  for more     detailed instruction.
+  - Export the Data: For each of the experiments identified above, export the intermediary data to the `wf_optim_crypto_analysis`. See [Example: Extracting experiments](#-example-extracting-experiments))  for more     detailed instruction.
     
 - 📉 **Unseen Period**:
 
@@ -143,7 +143,7 @@ The combination of these parameters, the script versions, and the resulting data
 
     - BTC/ETH/BNB: Training length 7 days/Testing length 28 days executed on data_unseen_20191001_20210920.csv
   
-  -  Export the Data: For each of the experiments identified above, export the intermediary data to the `wf_optim_crypto_analysis`. See [Example: Extracting experiments](https://github.com/tmroziewicz/wf_optim_crypto/blob/main/README.md#-example-extracting-experiments))  for more     detailed instruction
+  -  Export the Data: For each of the experiments identified above, export the intermediary data to the `wf_optim_crypto_analysis`. See [Example: Extracting experiments](https://github.com/tmr-crypto/wf_optim_crypto/blob/main/README.md#-example-extracting-experiments))  for more     detailed instruction
 
 
 #### 📋 Example: Extracting experiments
