@@ -43,6 +43,8 @@ This repository contains the code to reproduce the raw trading data for the rese
 
 The data generated here represents walk-forward optimization results across several key dimensions:
 
+- A novel optimization metric less sensitive to its adjacent parametrization: Robust Sharpe Ratio
+
 - Variable Window Lengths: Various lengths for the training and testing steps of the walk-forward process.
 
 - Time Frequency: Multi-resolution data sampling (e.g., 1, 5, 10, 15, 30, and 60-minute intervals).
