@@ -7,15 +7,10 @@ library('tidyverse')
 
 library('R6')
 
-#Precalculate all data which could be later used withouth need for caluclation 
+
 source("master/rcode//logic/strategy.r")
 source("master/rcode/logic/WfHelper.r")
 source("master/rcode/logic/helpers/datetime_helper.r")
-
-
-#read YAML params
-#params <- yaml::read_yaml("params.yaml")
-#params$`01_select`$currency
 
 Sys.setlocale("LC_TIME", "English")
 
@@ -31,12 +26,10 @@ parser <- add_option(parser,  "--indexes", action="store_true",type="character" 
 opt <- parse_args(parser)
 
 getwd()
-#setwd("C:/todo-p/UW/Master-Thesis")
+
 wf.indexes.df <- readRDS(opt$indexes)
-#wf.indexes.df <- readRDS("./master/data-wip/1/60/06_wf_indexes.rds")
 
 data.pnl.xts <- readRDS(opt$inputfile)
-#data.pnl.xts <- readRDS("./master/data-wip/1/60/05_pnl.rds")
 
 dvc.params.yaml <- yaml::read_yaml("params.yaml")
 

@@ -45,13 +45,9 @@ message(opt$asset)
 
 dir.create( file.path(asset.str,timeframe.int), recursive = TRUE)
 
-
-#dir.create( file.path("1","1"), recursive = TRUE)
-
 setwd(current.path)
 
 data.xts <- readRDS(opt$inputfile)
-#data.xts <- readRDS("master/data-wip/01_converted_to_xts.rds")
 
 downsampled.xts <- downsample.xts(data.xts[,asset.str], timeframe.int)
 
@@ -59,7 +55,6 @@ head(data.xts[,asset.str],10)
 
 head(downsampled.xts)
 
-#asset.str <- dvc.params.yaml$general$asset
 saveRDS(downsampled.xts, opt$outputfile)
 
 

@@ -7,7 +7,7 @@ library('tidyverse')
 
 library('R6')
 
-#Precalculate all data which could be later used withouth need for caluclation 
+
 source("master//rcode//logic//strategy.r")
 source("master//rcode//logic//WfHelper.r")
 source("master/rcode/logic/helpers/datetime_helper.r")
@@ -40,8 +40,6 @@ test.length.int  <-  as.integer(opt$testlen)
 #data.pnl.xts <- readRDS(inputfile)
 
 data.pnl.xts <- readRDS(opt$inputfile)
-#data.pnl.xts <- readRDS("./master/data-wip/1/1/05_pnl.rds")
-
 
 per <- periodicity(data.pnl.xts)
 
@@ -49,8 +47,6 @@ dvc.params.yaml <- yaml::read_yaml("params.yaml")
 
 WfHelper.obj <- WfHelper$new(param.path.str = dvc.params.yaml$wf$param.path)
 
-#TODO write function which clauclate that 
-# or this should be taken from parameters for downsample
 periods.per.day.int <- calc_frequency_per_day(dvc.params.yaml$general$tfmin)
 
 wf.indexes.df <- WfHelper.obj$calculate.indexes(data.pnl.xts, train_days = train.length.int*periods.per.day.int, test_days = test.length.int*periods.per.day.int)

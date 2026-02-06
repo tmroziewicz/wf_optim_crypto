@@ -7,12 +7,8 @@ library('tidyverse')
 
 library('R6')
 
-#Precalculate all data which could be later used withouth need for caluclation 
-source("master//rcode//logic//strategy.r")
 
-#read YAML params
-#params <- yaml::read_yaml("params.yaml")
-#params$`01_select`$currency
+source("master//rcode//logic//strategy.r")
 
 Sys.setlocale("LC_TIME", "English")
 
@@ -26,7 +22,6 @@ parser <- add_option(parser,  "--outputfile", action="store_true",type="characte
 opt <- parse_args(parser)
 
 data.in.xts <- readRDS(opt$inputfile)
-#data.in.xts <- readRDS("./master/data-wip/1/60/03_precalculated.rds")
 
 param.path.str <- "master//rcode//logic/strategy_param.yaml"
 

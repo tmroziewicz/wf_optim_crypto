@@ -4,16 +4,10 @@ library('optparse')
 library('tibble')
 library('here')
 library('tidyverse')
-
 library('R6')
 
-#Precalculate all data which could be later used withouth need for caluclation 
 source("master//rcode//logic//strategy.r")
 source("master//rcode//logic//WfHelper.r")
-
-#read YAML params
-#params <- yaml::read_yaml("params.yaml")
-#params$`01_select`$currency
 
 Sys.setlocale("LC_TIME", "English")
 
@@ -28,12 +22,8 @@ parser <- add_option(parser,  "--indexes", action="store_true",type="character" 
 
 opt <- parse_args(parser)
 
-
 metrics.df <- readRDS(opt$inputfile)
 
-#metrics.df <- readRDS("master/data-wip/07_wf_metrics.rds")
-
-#candidate for parametrization maybe class 
 dvc.params.yaml <- yaml::read_yaml("params.yaml")
 
 stats.to.chooose <- dvc.params.yaml$general$performance_stat
@@ -54,5 +44,3 @@ max.stat.df <- data.frame(selected_value, selected_col )
 max.stat.df <- cbind(train.test.start.end.df, max.stat.df)
 
 saveRDS(max.stat.df, opt$outputfile)
-
-

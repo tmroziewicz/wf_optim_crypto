@@ -6,7 +6,7 @@ library('here')
 library('tidyverse')
 library('R6')
 
-#Precalculate all data which could be later used withouth need for caluclation 
+
 source("master//rcode//logic//strategy.r")
 
 
@@ -28,6 +28,7 @@ opt <- parse_args(parser)
 param.path.str <- "master//rcode//logic/strategy_param.yaml"
 
 strat.params.yaml <- yaml::read_yaml(param.path.str)
+
 strat.params.yaml$strategy$ma_periods_array
 
 dvc.params.yaml <- yaml::read_yaml("params.yaml")
@@ -36,7 +37,6 @@ strategy.obj <- Strategy$new(param.path.str = param.path.str)
 
 data.in.xts <- readRDS(opt$inputfile)
 
-#data.in.xts <- readRDS("./master/data-wip/1/60/02_downsampled.rds")
 data.out.xts <- strategy.obj$precalculate(data.in.xts)
 
 #data.out.xts$lagAsset <- lag(data.out.xts$Asset)

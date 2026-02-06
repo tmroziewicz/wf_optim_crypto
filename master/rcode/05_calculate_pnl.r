@@ -7,9 +7,8 @@ library('tidyverse')
 
 library('R6')
 
-#Precalculate all data which could be later used withouth need for caluclation 
-source("master//rcode//logic//strategy.r")
 
+source("master//rcode//logic//strategy.r")
 
 Sys.setlocale("LC_TIME", "English")
 
@@ -31,13 +30,8 @@ dvc.params.yaml <- yaml::read_yaml("params.yaml")
 strategy.obj <- Strategy$new(param.path.str = param.path.str)
 
 data.in.xts <- readRDS(opt$inputfile)
-#data.in.xts <- readRDS("./master/data-wip/1/60/04_positions.rds")
 
 data.out.xts <- strategy.obj$calculate.pnl(data.in.xts)
-# print(head(data.out.xts))
-# print(packageVersion ("xts"))
-# print(packageVersion ("dplyr"))
-# print(packageVersion ("stats"))
-# print(R.version.string)
+
 saveRDS(data.out.xts, opt$outputfile)
 
