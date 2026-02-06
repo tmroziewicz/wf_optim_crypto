@@ -6,7 +6,7 @@ library('here')
 library('tidyverse')
 library('R6')
 source("master/rcode/logic/helpers/datetime_helper.r")
-#setwd("c:\\todo-p\\UW\\Master-Thesis")
+
 #read YAML params
 #params <- yaml::read_yaml("params.yaml")
 #params$`01_select`$currency

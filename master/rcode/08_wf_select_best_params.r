@@ -10,7 +10,7 @@ library('R6')
 #Precalculate all data which could be later used withouth need for caluclation 
 source("master//rcode//logic//strategy.r")
 source("master//rcode//logic//WfHelper.r")
-#setwd("c:\\todo-p\\UW\\Master-Thesis")
+
 #read YAML params
 #params <- yaml::read_yaml("params.yaml")
 #params$`01_select`$currency
