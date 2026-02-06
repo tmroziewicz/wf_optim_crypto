@@ -34,6 +34,9 @@ when a portfolio combining Buy-and-Hold with our strategies outperformed all ind
 strategies and Buy-and-Hold alone, achieving the highest overall performance and a 50%
 reduction in drawdown. A conservative fee of 0.1\% per transaction was included in all calculations. A cost sensitivity analysis was performed as a sanity check, revealing that the strategy's break-even point was around 0.4\% per transaction. This research highlights the importance of optimizing walk-forward window lengths and emphasizing the value of single-time out-of-sample testing for reliable strategy evaluation.
 
+<img width="400" alt="image" src="https://github.com/user-attachments/assets/6644af88-b8d4-4517-aba3-3b9ba58875cd" />                  <img width="395"  alt="image" src="https://github.com/user-attachments/assets/8d4dfe3d-70a2-4c42-8b4c-5cebf5a0873f" />
+
+
 ## Overview
 
 This repository contains the code to reproduce the raw trading data for the research described in the paper. These datasets serve as the upstream source for the [wf_optim_crypto_analysis](https://github.com/tmr-crypto/wf_optim_crypto_analysis) project, which handles the final visual representation and reporting. 
