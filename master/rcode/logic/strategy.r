@@ -7,6 +7,7 @@ source("master//rcode//logic//helpers//data_helper.r")
 Strategy <- R6Class(
   "Strategy",
   public = list(
+  
     # Initialize the fields
     position.type.int = NULL,
     fee_int = NULL,
@@ -17,6 +18,7 @@ Strategy <- R6Class(
     
     # Define the constructor
     initialize = function(param.path.str) {
+	
       self$params.yaml <- yaml::read_yaml(param.path.str)
         
       self$position.type.int <- self$params.yaml$strategy$position.type.int
@@ -27,22 +29,14 @@ Strategy <- R6Class(
       #it separate type of configuration from later usage in the code, 
       #params could be stored in db instead of yaml
       self$parameters[['ma_periods_array']] <- self$params.yaml$strategy$ma_periods_array
-      #self$fast <- params$fast
-      #self$slow <- params$slow
       
-      #self$position_type <- position_type
-      #self$fee <- fee
-      #self$lookback <- max(self$parameters[["slow"]])
     },
-    
-   
-    
     
     
     #do all pre-calculation needed for further processing 
     #Example: calculate ma, bands, 
     precalculate = function(data.xts){   
-      #self$params.yaml$
+
       print(self$parameters[['ma_periods_array']])
       period.array <- self$parameters[['ma_periods_array']]
       
@@ -53,7 +47,7 @@ Strategy <- R6Class(
       
       for ( i in 1:length(period.array)) {
         print(i)
-        print(paste("xxx --- " , period.array[i]))
+        print(paste("Current MA period --- " , period.array[i]))
         
         current.ema.xts <- EMA(na.locf(data.xts, na.rm = FALSE),
                                period.array[i])
@@ -119,10 +113,10 @@ Strategy <- R6Class(
     },
     
     calculate.pnl = function(positions.xts) {
+
       pos.mom.xts <- positions.xts[, !names(positions.xts) %in% "Asset"]
       ntrans <- abs(diff.xts(pos.mom.xts))
       ntrans[is.na(ntrans)] <- 0
-      
       
       logRets.xts <- getLogReturns(positions.xts$Asset)
       logRets.xts$Asset[is.na(logRets.xts$Asset)] <- 0 
@@ -135,8 +129,6 @@ Strategy <- R6Class(
       pnl.gross.xts <- xts(pnl.gross.matrix , index(positions.xts))
       
       pnl.net.xts <- pnl.gross.xts - ntrans * self$fee_int
-      
-      #pnl.net.xts <- merge.xts(logRets.xts,pnl.net.xts) 
       
       return(pnl.net.xts)
     }

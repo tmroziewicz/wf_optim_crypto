@@ -11,12 +11,11 @@ getLogReturns <- function (dataInXts)  {
 
 
 read_data = function(file.path.str) {
-  #return (read.csv(file.path.str, encoding = "UTF-8"))
-  
   return (data.table::fread(file.path.str, stringsAsFactors = FALSE, encoding = "UTF-8"))
 }
 
 transform_data = function(data.df){
+
   #convert to tibble 
   df.tbl <- as_tibble(data.df)
   
@@ -27,12 +26,9 @@ transform_data = function(data.df){
   dfwide.tmp.tbl <- na.locf(dfwide.tbl, na.rm = FALSE)
   
   dfwide.tmp.tbl %>% fill(everything(), .direction = "down") %>% fill(everything(), .direction = "up") -> dfwide.tmp.tbl
-  
-  #drop column 13 which 
+
   dfwide.tmp.tbl <- dfwide.tmp.tbl[,-ncol(dfwide.tmp.tbl)]
-  
-  #chart_Series(get_xts(dfwide[,c('timestamp','13')]))
-  
+   
   print( paste( " number of rols " , nrow(dfwide.tmp.tbl) , " number of cols " , ncol(dfwide.tmp.tbl)        ))
   
   print("Column names ")

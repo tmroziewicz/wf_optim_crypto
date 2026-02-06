@@ -34,18 +34,23 @@ WfHelper <- R6Class(
     calculate.indexes = function(data.xts, train_days, test_days) {
       # Get the index of the xts object as dates
       dates <- index(data.xts)
+
       # Initialize an empty list to store the results
       results <- list()
+
       # Loop through the dates with a step size of test_days
       for (i in seq(1, length(dates), by = test_days)) {
         # Calculate the start and end index of the train period
         train_start <- i
         train_end <- i + train_days - 1
+
         # Check if the train period is within the data range
         if (train_end <= length(dates)) {
+
           # Calculate the start and end index of the test period
           test_start <- train_end + 1
           test_end <- test_start + test_days - 1
+
           # Check if the test period is within the data range
           if (test_end <= length(dates)) {
             # Get the start and end dates of the train and test period
@@ -56,8 +61,10 @@ WfHelper <- R6Class(
             # Append the dates to the results list as a data frame
             results[[length(results) + 1]] <- data.frame(train_start_date, train_end_date, test_start_date, test_end_date)
           }
+		  
         }
       }
+
       # Return the results list as a single data frame
       return(do.call(rbind, results))
     },
@@ -65,7 +72,8 @@ WfHelper <- R6Class(
     calculate.metrics = function(data.pnl.xts, wf.indexes.df,  metrics.list, freq.per.day=0) {
       
       sharpe.wf.list <- list()
-      #iterate through each index genereated in previous step
+      
+	  #iterate through each index genereated in previous step
       for (i in 1:nrow(wf.indexes.df)) {
         #print(wf.index.df.idx[i, "train_start_date"])
         train_start_date <- wf.indexes.df[i, "train_start_date"]
@@ -77,21 +85,10 @@ WfHelper <- R6Class(
         
         test.data.xts <- data.pnl.xts[test_start_date:test_end_date,]  
         
-        #apply(train.data.xts,2,calc_sharpe,24*60*365)
-        #TODO still need to pass this as argument or parametrs : 
-        #freq.per.day =   24*60*365
-        
-        
-        #  data.list <- list("train"=train.data.xts, "test"=test.data.xts)
-        
         #construct list  of lists   key which is name of data set and entry which contains actaul data and start and end date
         data.list <- list("train"=list("data"=train.data.xts, "start_date"=train_start_date, "end_date"=train_end_date ),
                           "test"=list("data"=test.data.xts, "start_date"=test_start_date, "end_date"=test_end_date ))
         
-        #data.dates.list <- list ("train"= )
-        #for (data.index in names(data.list)) {
-        #  #print(data.list[[data.index]][['start_date']])
-        #}
         
         freq.annual <- 365*freq.per.day
         fun.list <- list(sum=NULL,sharpe=freq.annual,annualized_sd=freq.annual, annualized_mean=freq.annual, drawdown=NULL, ir2=freq.annual ,  sortino_ratio=freq.annual, kurtosis=NULL, skewness=NULL )
@@ -101,9 +98,10 @@ WfHelper <- R6Class(
           arg <- fun.list[[k]]
           
           stats.train.test.list <- list()
-          #go through train test and apply each function 
+        
+   		  #go through train test and apply each function 
           for (data.index in names(data.list)) {
-            #print(data.index)
+          			
             current.data <- data.list[[data.index]][['data']]
             start_date <- data.list[[data.index]][['start_date']]
             end_date <- data.list[[data.index]][['end_date']]
@@ -137,7 +135,7 @@ WfHelper <- R6Class(
     
     get.trg.rets = function(data.pnl.xts, positions.xts,max.stat.df,src.data.name.str,  trg.data.name.str,  stats.to.chooose.str) {
       
-      #stats.to.chooose <- "calc_sharpe"
+      
       col.ret <- "return"
       result.list <- list()
       
@@ -148,39 +146,27 @@ WfHelper <- R6Class(
         
         selected_col <-  gsub(src.data.name.str,"", max.stat.df[i,'selected_col'])
         
-        #test.wf.step.stat.value.double <- metrics.df %>% filter(train_stat == stats.to.chooose & .data[['test_start']]==test_start.int) %>% select(starts_with(paste("test_",max.col.name, sep=""))) %>% as.double
-        
         wf.step.xts <- data.pnl.xts[start.int:end.int, selected_col  ]
-        #this is not possible the term of xts to assing string to values 
-        #wf.step.xts$best_col <-  selected_col
+
         colnames(wf.step.xts)[1] <- col.ret
+
         wf.step.xts$positions <- positions.xts[start.int:end.int, selected_col  ]
-        
-        #wf.step.xts$asset_log_ret <- getLogReturns(positions.xts[start.int:end.int, "Asset" ]) 
-        
-        
-        
-        #wf.step.xts$test.step.stat <- test.wf.step.stat.value.double
         
         wf.step.xts$test_start <- start.int
         
         wf.step.xts$test_end  <- end.int
         
         result.list <- append(result.list, list(wf.step.xts))
+		
       }
       
       result.df <- do.call(rbind, result.list)
       result.xts <- merge.xts(result.df, positions.xts$Asset, join="left")
       result.xts <- merge.xts(result.xts, getLogReturns(positions.xts$Asset), join="left")
       
-      colnames(result.xts)[(ncol(result.xts)-1):ncol(result.xts)] <- c("Asset","Asset_returns")
-      #result.df$asset_returns <- getLogReturns(positions.xts$Asset)
+      colnames(result.xts)[(ncol(result.xts)-1):ncol(result.xts)] <- c("Asset","Asset_returns")      
       return (result.xts)
     }
-    
-    
-  
-
 
   )
 )
